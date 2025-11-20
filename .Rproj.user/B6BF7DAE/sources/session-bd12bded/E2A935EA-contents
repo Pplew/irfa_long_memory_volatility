@@ -1,0 +1,37 @@
+# Replication package – Long-memory volatility (GARCH vs FIGARCH)
+
+This repository contains the core replication material for the paper:
+
+> *Modelling long-memory in financial volatility: GARCH vs FIGARCH and risk-based evaluation*  
+> Jose L. Gamo
+
+The focus is on comparing GARCH(1,1) and FIGARCH(1,d,1) models for daily financial returns
+(S&P 500, IBEX 35, BOVESPA, Bitcoin, Tesla) and evaluating their performance in terms of
+Value-at-Risk (VaR) coverage.
+
+## Structure
+
+- `code/`
+  - `05_variance_models_GARCH_FIGARCH/Evaluacion_modelos_actualizado_v2.R`  
+    Main script: estimates GARCH and FIGARCH, computes AIC/BIC/RMSE, performs VaR
+    backtesting and exports robustness measures for the FIGARCH parameter d.
+
+- `data_processed/`
+  - `*_ret.csv` files with daily returns per asset.
+  - `mfdfa_resultados_resumen.csv`, `mfdfa_varianza_resultados_resumen.csv`  
+    MF-DFA summaries for returns and variance.
+
+- `replication_data/variance_models/`
+  - `resultados_modelos_fraccionales_v2_2_oroSoloMedia.csv`  
+    Main comparison table (ARIMA, ARFIMA, GARCH, FIGARCH, VaR tests).
+  - `robustez_figarch_d_submuestras.csv`  
+    Robustness of the FIGARCH d parameter across subsamples.
+  - `<activo>_volatilidades_condicionales.csv`  
+    Conditional volatility series and realised volatility for each asset.
+
+## How to run
+
+From R (with the project opened as an RStudio project and the `here` package installed):
+
+```r
+source("code/05_variance_models_GARCH_FIGARCH/Evaluacion_modelos_actualizado_v2.R")
