@@ -87,19 +87,13 @@ Due to licensing restrictions, raw files may not be redistributed.
 
 The script in:
 
-code/01_data_collection/Data_Collection.R
-
-
-re-downloads all raw series and stores them in:
+code/01_data_collection/Data_Collection.R re-downloads all raw series and stores them in:
 
 data_raw/
 
-
 ### 3.3 Processed Data
 
-All scripts consume returns in:
-
-data_processed/<activo>_ret.csv
+All scripts consume returns in data_processed/<activo>_ret.csv
 
 
 Each `<activo>_ret.csv` must contain:
@@ -188,9 +182,8 @@ Open the project (`irfa_long_memory_volatility.Rproj`) and run:
 
 ```r
 source("code/05_variance_models_GARCH_FIGARCH/Evaluacion_modelos_actualizado_v2.R")
-
+````
 ## 6. License
-
 
 ## 7. Contact
 

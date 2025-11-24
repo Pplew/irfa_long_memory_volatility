@@ -1,0 +1,7 @@
+Raw price data are not distributed due to licensing restrictions.
+
+All raw series can be downloaded from Yahoo Finance by running:
+  code/01_data_collection/Data_Collection.R
+
+This script recreates the contents of data_raw/ using publicly available
+price data from Yahoo Finance.
