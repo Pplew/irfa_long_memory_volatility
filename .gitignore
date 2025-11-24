@@ -1,0 +1,60 @@
+# ============================================
+# Gitignore optimizado para proyectos en R
+# ============================================
+
+# Archivos de RStudio
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+
+# Archivos del sistema macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon sometimes inserted by macOS
+Icon
+
+# Archivos de Thumbs.db de Windows
+Thumbs.db
+Desktop.ini
+
+# Archivos generados por editor
+*.swp
+*.swo
+
+# Archivos de logs temporales
+*.log
+
+# CSV grandes o temporales (mantén esta regla vacía por si quieres ignorar algo)
+# *.csv
+
+# Carpeta renv (si usas renv, descomentar)
+# renv/library/
+# renv/staging/
+# renv.lock
+
+# Archivos temporales de knitr / Rmarkdown
+*_cache/
+cache/
+*.utf8.md
+*.knit.md
+
+# Archivos generados por latex
+*.aux
+*.toc
+*.out
+*.bbl
+*.blg
+*.log
+*.fls
+*.fdb_latexmk
+
+# Backup files
+*~
+*.bak
+*.tmp
+
+# Archivos de proyecto que no deben subirse
+*.Rproj   # Si quieres evitar subir .Rproj (opcional)
