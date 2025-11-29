@@ -268,7 +268,7 @@ for (archivo in archivos){
     AIC_RB     = rb_fit$aic, BIC_RB     = rb_fit$bic, RMSE_RB_in     = rb_fit$rmse,
     RMSE_ARFIMA_oos = rmse_arfima_oos, MAE_ARFIMA_oos = mae_arfima_oos,
     RMSE_ARIMA_oos  = rmse_arima_oos,  MAE_ARIMA_oos  = mae_arima_oos,
-    RMSE_RB_oos     = rmese_rb_oos,     MAE_RB_oos     = mae_rb_oos,
+    RMSE_RB_oos     = rmse_rb_oos,     MAE_RB_oos     = mae_rb_oos,
     VaR1_ARFIMA = v_arf[1], VaR5_ARFIMA = v_arf[2],
     VaR1_ARIMA  = v_ari[1], VaR5_ARIMA  = v_ari[2],
     VaR1_RB     = v_rb[1],  VaR5_RB     = v_rb[2],
