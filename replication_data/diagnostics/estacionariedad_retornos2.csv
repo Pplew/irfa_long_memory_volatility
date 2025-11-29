@@ -1,0 +1,7 @@
+"Activo","Test","Estadistico","Pvalor","Decision"
+"bitcoin_ret","ADF",-12.3294990773541,0.01,"Rechaza H0 (estacionaria)"
+"bovespa_ret","ADF",-12.3609382001262,0.01,"Rechaza H0 (estacionaria)"
+"ibex35_ret","ADF",-12.1497897562961,0.01,"Rechaza H0 (estacionaria)"
+"oro_ret","ADF",-11.5665652517866,0.01,"Rechaza H0 (estacionaria)"
+"sp500_ret","ADF",-11.1913097074803,0.01,"Rechaza H0 (estacionaria)"
+"tesla_ret","ADF",-10.1929544120183,0.01,"Rechaza H0 (estacionaria)"

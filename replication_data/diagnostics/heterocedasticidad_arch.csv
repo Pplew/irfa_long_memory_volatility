@@ -1,0 +1,7 @@
+"Activo","Estadistico","Pvalor","Heterocedasticidad"
+"bitcoin_ret",124.0328,0,"Sí"
+"bovespa_ret",1683.5682,0,"Sí"
+"ibex35_ret",716.6376,0,"Sí"
+"oro_ret",314.2141,0,"Sí"
+"sp500_ret",1811.8997,0,"Sí"
+"tesla_ret",157.5031,0,"Sí"
