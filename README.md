@@ -1,193 +1,133 @@
-# irfa_long_memory_volatility
+Replication Package
 
-# Replication Package  
-## Long-Memory Volatility Modelling: GARCH vs FIGARCH and Risk-Based Evaluation
+This repository contains the full replication materials for:
 
-This repository contains the replication package for the paper:
+Gamo, J. (2025). Long-Memory in Financial Volatility:
+A Comparative Analysis of ARIMA/GARCH vs. ARFIMA/FIGARCH Models. Working paper.
 
-**Gamo, J. L. (2025)**  
-*Modelling long-memory in financial volatility: GARCH vs FIGARCH and risk-based evaluation.*
+It reproduces all empirical results reported in the study, including data preprocessing, diagnostics, long-memory estimation, mean and variance modelling, VaR evaluation, and robustness checks.
 
-The aim is to evaluate whether fractional volatility models (FIGARCH) deliver  
-structural and practical improvements relative to GARCH, using:
+1. Quick Start
 
-- Daily financial returns (S&P 500, IBEX 35, BOVESPA, Bitcoin, Tesla).  
-- Long-memory diagnostics (Hurst exponent, Lo’s modified R/S, MF-DFA).  
-- One-step-ahead volatility forecasts.  
-- Value-at-Risk (VaR) backtesting (Kupiec).  
+Run the entire analysis with:
 
-All analysis is performed in **R** using only **reproducible, relative paths** (`here` package).  
-This package is designed so that a referee can fully replicate the empirical results.
+source("run_all_replication.R")
 
----
 
-## 1. Repository Structure
+Switches inside the wrapper (run_block_02, run_block_03, …) allow running individual blocks.
 
-irfa_long_memory_volatility/
-├── code/
-│ ├── 01_data_collection/
-│ ├── 02_preprocessing/
-│ ├── 03_exploration_diagnostics/
-│ ├── 04_mean_models_ARIMA_ARFIMA/
-│ ├── 05_variance_models_GARCH_FIGARCH/
-│ ├── 06_risk_evaluation_VaR/
-│ └── 07_robustness_checks/
-│
-├── data_raw/ # Raw files (not distributed if restricted)
-├── data_processed/ # Cleaned returns and MF-DFA summaries
-├── replication_data/
-│ └── variance_models/ # Main output tables for the paper
-│
-├── output/
-│ ├── figures/
-│ ├── tables/
-│ └── logs/
-│
-└── docs/
-└── IRFA_version_paper.docx
+2. Repository Structure
+code/                     # All R scripts
+data_raw/                 # Raw price data (NOT distributed)
+data_processed/           # Clean prices and returns
+replication_data/         # Numerical outputs used in the paper
+output/figures/           # All figures
+run_all_replication.R     # Master wrapper
 
+3. Requirements
 
----
+The analysis uses base R plus:
 
-## 2. Software Environment
+forecast, tseries, lmtest, FinTS, fracdiff,
+rugarch, MFDFA, pracma,
+data.table, zoo, xts, here, ggplot2.
 
-- **R version:** ≥ 4.2  
-- Key packages:
-  - `rugarch` — GARCH/FIGARCH estimation  
-  - `fracdiff` — ARFIMA(0,d,0) estimation  
-  - `forecast` — ARIMA modelling  
-  - `PerformanceAnalytics`  
-  - `zoo`, `xts`  
-  - `here` — relative paths  
-  - `data.table` or `dplyr` (optional)
+Check your environment with:
 
-The exact environment used to run the models is stored in:
+sessionInfo()
 
-output/logs/sessionInfo_R.txt
+4. Data Policy
 
+Raw Yahoo Finance data cannot be redistributed.
+Users must provide price series in data_raw/ or run Block 01 locally.
 
----
+Processed files are created automatically in data_processed/.
 
-## 3. Data
+5. Workflow Overview
+Block 02 – Preprocessing
 
-### 3.1 Assets
+Clean prices
 
-The analysis uses daily returns for:  
-- Bitcoin (BTC/USD)  
-- S&P 500  
-- IBEX 35  
-- BOVESPA  
-- Tesla  
-- Gold (only for mean models)
+Compute log-prices and log-returns
 
-### 3.2 Raw Data
+Save to data_processed/<asset>_price.csv and <asset>_ret.csv
 
-Raw price data are retrieved from **Yahoo Finance**.  
-Due to licensing restrictions, raw files may not be redistributed.  
+Block 03 – Diagnostics
 
-The script in:
+Descriptive statistics
 
-code/01_data_collection/Data_Collection.R re-downloads all raw series and stores them in:
+Extreme-return analysis
 
-data_raw/
+ACF/PACF of returns and squared returns
 
-### 3.3 Processed Data
+ADF tests
 
-All scripts consume returns in data_processed/<activo>_ret.csv
+ARCH LM tests
 
+Hurst (R/S) and Lo modified R/S tests
 
-Each `<activo>_ret.csv` must contain:
+Outputs: replication_data/exploration/ and replication_data/diagnostics/
 
-- `fecha` (Date)  
-- `retorno` (numeric daily return)
+Block 03b – MF-DFA
 
-MF-DFA summaries must also be located in:
+MF-DFA on returns and on variance (r²)
 
-data_processed/mfdfa_resultados_resumen.csv
-data_processed/mfdfa_varianza_resultados_resumen.csv
+Summary tables: h(q) for q ∈ {−4,…,+4}
 
+Outputs: replication_data/MF-DFA/
 
----
+Block 04 – Mean Models
 
-## 4. Code Overview
+ARFIMA initialisation based on h(2)
 
-### 4.1 Mean Models (ARIMA / ARFIMA)
+Comparison: White Noise vs ARIMA vs ARFIMA
 
-code/04_mean_models_ARIMA_ARFIMA/ARIMA_ARFIMA_comp_completa.R
+Metrics: AIC, BIC, RMSE, MAE, d-robustness
 
+Outputs: replication_data/mean_models/
 
-- Estimates ARIMA and ARFIMA models for all assets.  
-- Computes AIC, BIC, RMSE (in-sample / out-of-sample).  
-- Gold is included only for the mean, as a complementary diagnostic.
+Block 05 – Variance Models
 
-### 4.2 Long-Memory Diagnostics
+GARCH(1,1) vs FIGARCH(1,d,1)
 
-Scripts in code/03_exploration_diagnostics/ implement:
+In- and out-of-sample volatility forecasts
 
-- Hurst exponent  
-- Lo’s modified R/S test  
-- MF-DFA on returns  
-- MF-DFA on squared returns (variance proxy)
+VaR(1%,5%) from model-implied σₜ
 
-### 4.3 Variance Models (GARCH vs FIGARCH)
+Rolling d for robustness
 
-**Main script of the replication package:**
+Outputs: replication_data/variance_models/
 
-code/05_variance_models_GARCH_FIGARCH/Evaluacion_modelos_actualizado_v2.R
+Block 06 – Risk Evaluation
 
+Organisation of VaR results
 
-This script:
+Violation counts and unconditional coverage
 
-1. Loads all returns  
-2. Fits:
-   - GARCH(1,1)
-   - FIGARCH(1,d,1)
-3. Extracts:
-   - `d` parameter  
-   - AIC / BIC  
-   - RMSE of volatility forecasts  
-4. Performs 1-step-ahead forecasts  
-5. Runs VaR tests (1% & 5%)  
-6. Computes robustness of `d` via subsamples  
-7. Saves all results to `replication_data/variance_models/`
+Block 07 – Robustness
 
-This is the script a referee only needs to reproduce all volatility results.
+Consolidation of ARFIMA and FIGARCH stability metrics
 
-### 4.4 Outputs Generated
+Outputs: replication_data/robustness/
 
-The script generates:
+6. Citation
 
-- **Main comparison table:** in
+If using this repository, please cite:
 
-replication_data/variance_models/resultados_modelos_fraccionales_v2_2_oroSoloMedia.csv
+Gamo, J. (2025). Long-Memory in Financial Volatility:
+A Comparative Analysis of ARIMA/GARCH vs. ARFIMA/FIGARCH Models.
+Working paper.
 
 
-- **Robustness of the FIGARCH parameter d:**. in
+(BibTeX provided below.)
 
-replication_data/variance_models/robustez_figarch_d_submuestras.csv
+7. Contact
 
+José Luis Gamo
+Email:jose.luis.gamo@gmail.com
 
-- **Conditional volatility series** for each asset:
+GitHub: https://github.com/Pplew
 
-replication_data/variance_models/<activo>_volatilidades_condicionales.csv
+8. Acknowledgments
 
-
-These outputs correspond exactly to the tables and results presented in the paper.
-
----
-
-## 5. How to Reproduce the Results
-
-Open the project (`irfa_long_memory_volatility.Rproj`) and run:
-
-```r
-source("code/05_variance_models_GARCH_FIGARCH/Evaluacion_modelos_actualizado_v2.R")
-````
-## 6. License
-
-## 7. Contact
-
-For any issues regarding replication:
-
-Jose L. Gamo
-jose.luis.gamo@gmail.com
+The author thanks José Ignacio Olmeda for guidance, and feedback throughout the development of this research.
