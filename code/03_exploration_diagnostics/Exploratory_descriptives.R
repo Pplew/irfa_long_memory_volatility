@@ -122,4 +122,16 @@ resumenes <- do.call(rbind, lapply(activos, analizar_activo))
 ruta_res_gen <- here("replication_data", "exploration", "resumen_general.csv")
 write.csv(resumenes, file = ruta_res_gen, row.names = FALSE)
 cat("\nResumen general guardado en:", ruta_res_gen, "\n")
+
+# ==========================================
+# Save R session info for reproducibility
+# ==========================================
+suppressWarnings(dir.create(here::here("output", "logs"),
+                            recursive = TRUE, showWarnings = FALSE))
+
+sink(here::here("output", "logs", "sessionInfo_R.txt"))
+cat("R session info for full replication pipeline\n\n")
+print(sessionInfo())
+sink()
+
 cat("\nExploratory descriptives completado.\n")
