@@ -1,3 +1,4 @@
+# Replication package DOI: https://doi.org/10.5281/zenodo.17771383
 # ==========================================================
 # run_all_replication.R
 #

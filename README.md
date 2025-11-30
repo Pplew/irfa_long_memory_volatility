@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17771383.svg)](https://doi.org/10.5281/zenodo.17771383)
+
 Replication Package
 
 This repository contains the full replication materials for:
