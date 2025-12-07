@@ -34,6 +34,17 @@ forecast, tseries, lmtest, FinTS, fracdiff,
 rugarch, MFDFA, pracma,
 data.table, zoo, xts, here, ggplot2.
 
+Software environment:
+R version 4.3.1 (2023)
+rugarch 1.4-2
+fracdiff 1.5-2
+forecast 8.21
+tidyverse 2.0.0
+MF-DFA code implemented as custom function based on Kantelhardt et al. (2002) and included in /code/MFDFA.R.
+
+Data downloaded from Yahoo Finance on 2024-11-15
+
+
 Check your environment with:
 
 sessionInfo()
@@ -104,7 +115,8 @@ Block 06 – Risk Evaluation
 
 Organisation of VaR results
 
-Violation counts and unconditional coverage
+Violation counts and unconditional coverage based on Kupiec (1995) test.
+
 
 Block 07 – Robustness
 
@@ -120,8 +132,6 @@ Gamo, J. (2025). Long-Memory in Financial Volatility:
 A Comparative Analysis of ARIMA/GARCH vs. ARFIMA/FIGARCH Models.
 Working paper.
 
-
-(BibTeX provided below.)
 
 7. Contact
 

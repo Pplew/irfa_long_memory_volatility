@@ -16,6 +16,11 @@
 #   source("run_all_replication.R")
 # ==========================================================
 
+packages <- c("quantmod","rugarch","fracdiff","forecast","zoo","tidyverse")
+new <- packages[!(packages %in% installed.packages()[,"Package"])]
+if(length(new)) install.packages(new)
+lapply(packages, library, character.only = TRUE)
+
 suppressPackageStartupMessages({
   library(here)
 })
