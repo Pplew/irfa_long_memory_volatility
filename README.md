@@ -4,8 +4,8 @@ Replication Package
 
 This repository contains the full replication materials for:
 
-Gamo, J. (2025). Long-Memory in Financial Volatility:
-A Comparative Analysis of ARIMA/GARCH vs. ARFIMA/FIGARCH Models. Working paper.
+Gamo, J. (2025). Modeling Financial Volatility with Long Memory: An Empirical Comparison of GARCH and FIGARCH Models. Submitted to International Review of Financial Analysis.
+
 
 It reproduces all empirical results reported in the study, including data preprocessing, diagnostics, long-memory estimation, mean and variance modelling, VaR evaluation, and robustness checks.
 
@@ -15,6 +15,7 @@ Run the entire analysis with:
 
 source("run_all_replication.R")
 
+This script reproduces all tables and figures reported in the article, including Table 1 (MF-DFA summary), Table 2 (GARCH vs FIGARCH comparison), and Figures 1–2 (MF-DFA spectra for returns and volatility).
 
 Switches inside the wrapper (run_block_02, run_block_03, …) allow running individual blocks.
 
@@ -24,6 +25,7 @@ data_raw/                 # Raw price data (NOT distributed)
 data_processed/           # Clean prices and returns
 replication_data/         # Numerical outputs used in the paper
 output/figures/           # All figures
+output/figures/mfdfa/     # MF-DFA spectra used in Figures 1–2 (hq_retornos_plot., hq_varianza_plot.)
 run_all_replication.R     # Master wrapper
 
 3. Requirements
@@ -31,7 +33,7 @@ run_all_replication.R     # Master wrapper
 The analysis uses base R plus:
 
 forecast, tseries, lmtest, FinTS, fracdiff,
-rugarch, MFDFA, pracma,
+rugarch, pracma,
 data.table, zoo, xts, here, ggplot2.
 
 Software environment:
@@ -85,9 +87,17 @@ Block 03b – MF-DFA
 
 MF-DFA on returns and on variance (r²)
 
-Summary tables: h(q) for q ∈ {−4,…,+4}
+Summary tables: h(q) for q ∈ {−4,…,+4} for each asset
 
-Outputs: replication_data/MF-DFA/
+Outputs:
+
+data_processed/mfdfa_resultados_resumen.csv (returns)
+
+data_processed/mfdfa_varianza_resultados_resumen.csv (variance)
+
+output/figures/mfdfa/hq_retornos_plot.* and output/figures/mfdfa/hq_varianza_plot.* (Figures 1–2 in the paper)
+
+replication_data/MF-DFA/ (intermediate results, if applicable)
 
 Block 04 – Mean Models
 
@@ -128,9 +138,7 @@ Outputs: replication_data/robustness/
 
 If using this repository, please cite:
 
-Gamo, J. (2025). Long-Memory in Financial Volatility:
-A Comparative Analysis of ARIMA/GARCH vs. ARFIMA/FIGARCH Models.
-Working paper.
+Gamo, J. (2025). Modeling Financial Volatility with Long Memory: An Empirical Comparison of GARCH and FIGARCH Models. Submitted to International Review of Financial Analysis.
 
 
 7. Contact
